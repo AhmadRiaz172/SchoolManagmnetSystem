@@ -41,7 +41,7 @@
         position:fixed;
           overflow: hidden;
           text-align: center;
-           width: 240px;
+           width: 245px;
             height: 4x;    
      	  top:220px;
 	     left:calc(43% - 43px);
@@ -66,5 +66,5 @@
 <div class="php">
 <?php
    session_start();
-   echo "Welcome! ".$_SESSION["email"];
+   echo "Welcome! ".$_SESSION["email"].$_SESSION["user"];
 ?>

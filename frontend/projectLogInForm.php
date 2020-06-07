@@ -144,7 +144,7 @@
 <a href="">
 <div class="phpStyling">
 <?php
-  error_reporting(0);
+  #error_reporting(0);
    session_start();
     if(isset($_POST['Login']))
     {  
@@ -167,22 +167,43 @@
          $email=$_POST['email'];
           $pass=$_POST['pass'];
           $_SESSION["email"]=$email;
-           $query="INSERT into login(email,password) values ('$email','$pass')";
-            #$exist=mysqli_query($con,$query);
-            #if(mysqli_num_rows($exist)>0)
-             #{
-               # echo "Email Exists";
-             #}
-            #else
-             #{ echo "New Registration";}
 
-              
-             $queryParsed = oci_parse($con,$query);
-              $executionResult = oci_execute($queryParsed);
-              if($executionResult){ header('Location: homePage.php'); echo"New User";}
-              else{header('Location: homePage.php'); echo "Old user!";}
-      }
+          $query="SELECT * from login where email='$email'";
+          $parsedQuery=oci_parse($con,$query);
+          $exceutionResult=oci_execute($parsedQuery);
+        if($exceutionResult) 
+        {
+            $numofRows=oci_fetch_all($parsedQuery,$numofRows);
+            if($numofRows==0)
+             {
+               $_SESSION["user"]="New User";
+                $queryTwo="INSERT into login values('$email','$pass')";
+                 $parsedQueryTwo=oci_parse($con,$queryTwo);
+                  $exceutionResultTwo=oci_execute($parsedQueryTwo);
+                   if($exceutionResultTwo){header("Location: homePage.php");}
+                    else{echo "Unsuccessful Insertion!";}
+                    oci_commit($con);
+            }
+           else if($numofRows>0)
+            { 
+               $query="SELECT * from login where email='$email' AND password='$pass'";
+               $parsedQuery=oci_parse($con,$query);
+               $exceutionResult=oci_execute($parsedQuery);
+               $numofRows=oci_fetch_all($parsedQuery,$numofRows);
+               if($numofRows>0)
+                {
+                  $_SESSION["user"]=" ";
+                  header("Location: homePage.php");
+                }
+                else
+                   echo"Incorrect Password!";
+            }
+        }
+        else{
+              echo "First Query Not executed!";
+        }
     }
+}
 ?>
 
 </div>  
