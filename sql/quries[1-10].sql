@@ -5,7 +5,10 @@ select * from student;
 select mothername as mother,fathername as spouse from parent;
 
 //3
-
+select guardian.name as guardian,student.name as student,student.relationwithguardian as RELATION 
+from student 
+inner join guardian
+on guardian.guardianid = student.studentid;
 
 //4
 select p.mothername as MOTHER ,p.fathername as FATHER , s.name as STUDENT
