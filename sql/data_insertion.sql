@@ -331,5 +331,7 @@ INSERT INTO "SCOTT"."SECTIONCHANGE" (SECTIONCHANGEID, STUDENTID, EDATE, REASON, 
 VALUES ('4', '13', TO_DATE('3-JUN-20', 'DD-MON-RR'), 'To balance classes', '5', '4');
 
 
+// values for admin table 
+insert into admin values('admin@nu.edu.pk','12345678');
 
 

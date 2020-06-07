@@ -1,6 +1,5 @@
 <HTML>
 	<HEAD>
-		<TITLE>INSERTION OF DATA</TITLE>
 	</HEAD>
 	<Body>
 	 <?php
